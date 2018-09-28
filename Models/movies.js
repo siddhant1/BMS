@@ -5,6 +5,9 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  ratings: {
+    type: String
+  },
   categories: [
     {
       type: String,
@@ -18,7 +21,7 @@ const schema = new mongoose.Schema({
     }
   ]
 });
-const Movie = mongoose.model("movies", schema);
+const Movie = mongoose.model("Movie", schema);
 function validateMovie(movie) {
   const schema = {
     name: Joi.string().required(),

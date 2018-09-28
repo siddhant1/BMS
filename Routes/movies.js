@@ -24,7 +24,8 @@ router.post("/", async (req, res) => {
   const movie = new Movie({
     name: req.body.name,
     categories: req.body.categories,
-    languages: req.body.languages
+    languages: req.body.languages,
+    ratings: req.body.ratings
   });
   await movie.save();
   res.send(movie);
@@ -44,7 +45,8 @@ router.put("/:id", async (req, res) => {
       $set: {
         name: req.body.name,
         categories: req.body.categories,
-        languages: req.body.languages
+        languages: req.body.languages,
+        ratings: req.body.ratings
       }
     },
     { new: true }
