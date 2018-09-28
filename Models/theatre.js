@@ -12,7 +12,7 @@ const theatreSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "movies"
       },
-      timings: { type: String }
+      timings: [String]
     }
   ]
 });

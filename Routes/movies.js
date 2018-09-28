@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { Movie, validate } = require("../Models/movies");
-
+const ObjectId = require("mongoose").Types.ObjectId;
 // Get all movies
 router.get("/", async (req, res) => {
   const movies = await Movie.find();
@@ -9,6 +9,8 @@ router.get("/", async (req, res) => {
 
 //Get a specfic movie
 router.get("/:id", async (req, res) => {
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(404).send("Invalid Movie Request");
   const movie = await Movie.findById(req.params.id);
   if (!movie) return res.status(404).send("No movie found");
   res.send(movie);
@@ -34,6 +36,8 @@ router.post("/", async (req, res) => {
 //Update a movie
 
 router.put("/:id", async (req, res) => {
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(404).send("Invalid Movie Request"); ``
   const { error } = validate(req.body);
   if (error) {
     res.status(400).send(error.details[0].message);

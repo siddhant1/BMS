@@ -67,3 +67,5 @@ router.put("/:id", async (req, res) => {
   if (!theatre) return res.status(404).send("Movie Not Found");
   res.status(200).send(theatre);
 });
+
+module.exports = router;
