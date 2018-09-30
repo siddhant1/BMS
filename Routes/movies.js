@@ -27,7 +27,9 @@ router.post("/", async (req, res) => {
     name: req.body.name,
     categories: req.body.categories,
     languages: req.body.languages,
-    ratings: req.body.ratings
+    ratings: req.body.ratings,
+    director: req.body.director,
+    cast: req.body.cast
   });
   await movie.save();
   res.send(movie);
@@ -37,7 +39,8 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   if (!ObjectId.isValid(req.params.id))
-    return res.status(404).send("Invalid Movie Request"); ``
+    return res.status(404).send("Invalid Movie Request");
+  ``;
   const { error } = validate(req.body);
   if (error) {
     res.status(400).send(error.details[0].message);
@@ -50,7 +53,9 @@ router.put("/:id", async (req, res) => {
         name: req.body.name,
         categories: req.body.categories,
         languages: req.body.languages,
-        ratings: req.body.ratings
+        ratings: req.body.ratings,
+        director: req.body.director,
+        cast: req.body.cast
       }
     },
     { new: true }

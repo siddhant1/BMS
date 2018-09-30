@@ -19,15 +19,25 @@ const schema = new mongoose.Schema({
       type: String,
       required: true
     }
-  ]
+  ],
+  director: String,
+  cast: [String]
 });
-const Movie = mongoose.model("Movie", schema);
+const Movie = mongoose.model("movie", schema);
 function validateMovie(movie) {
   const schema = {
     name: Joi.string().required(),
-    ratings:Joi.string(),
-    categories: Joi.array().items(Joi.string()).required(),
-    languages: Joi.array().items(Joi.string()).required()
+    ratings: Joi.string(),
+    categories: Joi.array()
+      .items(Joi.string())
+      .required(),
+    languages: Joi.array()
+      .items(Joi.string())
+      .required(),
+    director: Joi.string().required(),
+    cast: Joi.array()
+      .items(Joi.string())
+      .required()
   };
   return Joi.validate(movie, schema);
 }

@@ -6,27 +6,14 @@ const Joi = require("joi");
 const theatreSchema = new mongoose.Schema({
   name: { type: String, required: true },
   address: { type: String, required: true },
-  movieTime: [
-    {
-      movie: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "movies"
-      },
-      timings: [String]
-    }
-  ]
+  seatCount: { type: Number, required: true }
 });
-const Theatre = mongoose.model("Theatre", theatreSchema);
+const Theatre = mongoose.model("theatre", theatreSchema);
 function validateTheatre(theatre) {
   const schema = {
     name: Joi.string().required(),
     address: Joi.string().required(),
-    movieTime: Joi.array().items(
-      Joi.object().keys({
-        movieId: Joi.objectId(),
-        time: Joi.string()
-      })
-    )
+    seatCount: Joi.number().required()
   };
   return Joi.validate(theatre, schema);
 }
