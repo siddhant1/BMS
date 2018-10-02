@@ -5,14 +5,16 @@ const { validate, Premiere } = require("../Models/premiere");
 //GET REQUEST
 
 router.get("/", async (req, res) => {
-  const premiere = await Premiere.find();
-  return premiere;
+  const premiere = await Premiere.find()
+    .populate("movie", "name")
+    .populate("theatre","name");
+  res.send(premiere);
 });
 
 //POST A NEW PREMIERE
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.send(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
   const premiere = new Premiere({
     date: req.body.date,
     movie: req.body.movie,
@@ -45,3 +47,5 @@ router.put("/:id", async (req, res) => {
   if (!premiere) return res.status(404).send("No premiere found");
   res.status(202).send(premiere);
 });
+
+module.exports = router;
